@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baglity – Premium Maternity Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #080808;
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #starsCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-svg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Centre card */
+  .wrap {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 560px;
+    padding: 60px 48px 52px;
+    text-align: center;
+  }
+
+  .top-rule { display: flex; align-items: center; gap: 14px; justify-content: center; margin-bottom: 28px; }
+  .top-rule .line { flex: 1; max-width: 70px; height: 1px; background: linear-gradient(90deg, transparent, #C9A96E); }
+  .top-rule .line.r { background: linear-gradient(90deg, #C9A96E, transparent); }
+  .top-rule .diamond { width: 7px; height: 7px; background: #C9A96E; transform: rotate(45deg); }
+
+  /* Logo */
+  .logo-text {
+    font-size: 64px;
+    font-weight: 600;
+    letter-spacing: 18px;
+    color: #F5EDD8;
+    text-transform: uppercase;
+    line-height: 1;
+    text-shadow: 0 0 30px #C9A96E66, 0 0 60px #C9A96E22;
+    margin-bottom: 10px;
+  }
+  /* .logo-img { width: 200px; height: auto; margin: 0 auto 10px; display: block; } */
+
+  .sub {
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: #E8C060;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    display: block;
+    width: 100%;
+    text-indent: -18px;
+  }
+
+  .mid-ornament { margin: 28px auto; display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .mid-ornament .mline { width: 60px; height: 1px; background: #C9A96EBB; }
+  .mid-ornament .star { color: #E8C88A; font-size: 16px; opacity: 1; }
+
+  /* Products */
+  .products { display: flex; gap: 24px; justify-content: center; margin: 22px 0; }
+
+  .pbox {
+    width: 180px;
+    border: 1px solid #6A5A3A;
+    position: relative;
+    overflow: hidden;
+    background: rgba(20,16,8,0.8);
+    cursor: pointer;
+    transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
+  }
+  .pbox:hover {
+    border-color: #C9A96E;
+    box-shadow: 0 0 24px #C9A96E55, 0 0 50px #C9A96E22, inset 0 0 24px #C9A96E0A;
+    transform: translateY(-5px);
+  }
+  .pbox::before { content:''; position:absolute; inset:0; border:1px solid #C9A96E22; pointer-events:none; z-index:1; transition:border-color 0.35s; }
+  .pbox:hover::before { border-color:#C9A96E55; }
+  .pbox::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,#C9A96E00,#C9A96E0D,#C9A96E00); opacity:0; transition:opacity 0.35s; z-index:2; pointer-events:none; }
+  .pbox:hover::after { opacity:1; }
+
+  .pimg {
+    width: 100%;
+    height: 190px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,10,10,0.8);
+    position: relative;
+    z-index: 3;
+    overflow: hidden;
+  }
+  .pimg img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+  .pbox:hover .pimg img { transform:scale(1.05); }
+
+  .pimg-placeholder { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .pimg-placeholder svg { width:44px; height:44px; opacity:0.35; transition:opacity 0.35s; }
+  .pbox:hover .pimg-placeholder svg { opacity:0.65; }
+  .pimg-placeholder span { font-size:10px; letter-spacing:2px; color:#AAAAAA; font-family:'Josefin Sans',sans-serif; font-weight:200; transition:color 0.35s; }
+  .pbox:hover .pimg-placeholder span { color:#C9A96E77; }
+
+  .pname {
+    padding: 14px 10px;
+    border-top: 1px solid #1E1E1E;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #E8C060;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    background: rgba(5,5,5,0.9);
+    position: relative;
+    z-index: 3;
+    transition: color 0.35s, background 0.35s;
+  }
+  .pbox:hover .pname { color:#F5EDD8; background:rgba(30,20,5,0.95); border-top-color:#C9A96E44; }
+
+  .tagline {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    justify-content: center;
+    margin: 18px 0 24px;
+  }
+  .tagline .tline { flex: 1; max-width: 50px; height: 1px; background: linear-gradient(90deg, transparent, #C9A96E); }
+  .tagline .tline.r { background: linear-gradient(90deg, #C9A96E, transparent); }
+  .tagline .ttext {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #E8C060;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* WhatsApp */
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #6A5A3A;
+    color: #F5EDD8;
+    padding: 16px 48px;
+    font-size: 14px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+    box-shadow: none;
+    transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
+    text-decoration: none;
+  }
+  .wa-btn:hover { border-color:#C9A96E; box-shadow:0 0 18px #C9A96E55,0 0 40px #C9A96E22,inset 0 0 20px #C9A96E0A; transform:translateY(-2px); }
+  .wa-btn::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,#C9A96E00,#C9A96E0D,#C9A96E00); opacity:0; transition:opacity 0.35s; pointer-events:none; }
+  .wa-btn:hover::after { opacity:1; }
+  .wa-dot { width:10px; height:10px; background:#25D366; border-radius:50%; box-shadow:0 0 8px #25D36699; flex-shrink:0; }
+
+  /* Social */
+  .social-row { display:flex; align-items:center; justify-content:center; gap:16px; margin-top:28px; }
+  .social-icon {
+    width: 42px; height: 42px;
+    border: 1px solid #6A5A3A;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; background: rgba(20,16,8,0.8);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    text-decoration: none;
+  }
+  .social-icon:hover { border-color:#C9A96E; box-shadow:0 0 18px #C9A96E55, 0 0 40px #C9A96E22; transform: translateY(-2px); }
+  .social-icon svg { width:18px; height:18px; }
+
+  .social-label { font-size:9px; letter-spacing:4px; color:#F0D898; font-family:'Josefin Sans',sans-serif; font-weight:600; text-transform:uppercase; margin-top:20px; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:10px; }
+
+  .bottom-rule { margin-top:20px; display:flex; align-items:center; gap:14px; justify-content:center; }
+  .bottom-rule .line { flex:1; max-width:50px; height:1px; background:linear-gradient(90deg,transparent,#C9A96EBB); }
+  .bottom-rule .line.r { background:linear-gradient(90deg,#C9A96EBB,transparent); }
+  .bottom-rule span { font-size:11px; letter-spacing:5px; color:#F5EDD8; font-family:'Josefin Sans',sans-serif; font-weight:400; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<canvas id="starsCanvas"></canvas>
+
+<svg class="bg-svg" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#C9A96E" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#F5EDD8" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#C9A96E" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="p1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="p2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Gold panels top-right -->
+  <polygon points="900,0 1440,0 1440,600 1100,700" fill="url(#p1)"/>
+  <polygon points="1050,0 1500,200 1350,700 950,500" fill="url(#p2)"/>
+  <!-- Gold panels bottom-left -->
+  <polygon points="0,500 400,400 350,900 0,900" fill="url(#p1)"/>
+  <!-- Glowing diagonal lines -->
+  <line x1="700" y1="0" x2="1500" y2="600" stroke="url(#g1)" stroke-width="1.5" filter="url(#glow)"/>
+  <line x1="720" y1="0" x2="1520" y2="600" stroke="#C9A96E" stroke-width="0.4" opacity="0.3"/>
+  <line x1="1500" y1="100" x2="900" y2="700" stroke="url(#g2)" stroke-width="1.2" filter="url(#glow)"/>
+  <line x1="0" y1="650" x2="500" y2="950" stroke="url(#g1)" stroke-width="1.2" filter="url(#glow)"/>
+  <!-- Corner L-brackets -->
+  <g stroke="#C9A96E" stroke-width="1.5" fill="none" opacity="0.6">
+    <path d="M16,60 L16,16 L60,16"/>
+    <path d="M1380,16 L1424,16 L1424,60"/>
+    <path d="M16,840 L16,884 L60,884"/>
+    <path d="M1380,884 L1424,884 L1424,840"/>
+  </g>
+  <!-- Dashed border -->
+  <rect x="12" y="12" width="1416" height="876" fill="none" stroke="#C9A96E" stroke-width="0.5" stroke-dasharray="5,14" opacity="0.15"/>
+</svg>
+
+<div class="wrap">
+
+  <div class="top-rule">
+    <div class="line"></div>
+    <div class="diamond"></div>
+    <div class="diamond" style="width:5px;height:5px;opacity:0.4;margin:0 -10px"></div>
+    <div class="diamond"></div>
+    <div class="line r"></div>
+  </div>
+
+  <!-- TO ADD LOGO IMAGE: save as logo.png, uncomment img tag, delete logo-text div -->
+  <!-- <img class="logo-img" src="logo.png" alt="Baglity"> -->
+  <div class="logo-text">Baglity</div>
+  <div class="sub">Your Perfect Travel Partner</div>
+
+  <div class="mid-ornament">
+    <div class="mline"></div>
+    <div class="star">✦</div>
+    <div class="mline"></div>
+  </div>
+
+  <div class="products">
+
+    <!-- BLACK BAG -->
+    <div class="pbox" onclick="openPopup('popup-black')" style="cursor:pointer">
+      <div class="pimg">
+        <!-- TO ADD PHOTO: save as black-bag.jpg, uncomment img, delete pimg-placeholder div -->
+        <!-- <img src="black-bag.jpg" alt="Baglity Noir Black"> -->
+        <div class="pimg-placeholder">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/>
+            <path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/>
+            <circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/>
+          </svg>
+          <span>Add Photo</span>
+        </div>
+      </div>
+      <div class="pname">Noir — Black</div>
+    </div>
+
+    <!-- BLUE BAG -->
+    <div class="pbox" onclick="openPopup('popup-blue')" style="cursor:pointer">
+      <div class="pimg">
+        <!-- TO ADD PHOTO: save as blue-bag.jpg, uncomment img, delete pimg-placeholder div -->
+        <!-- <img src="blue-bag.jpg" alt="Baglity Noir Blue"> -->
+        <div class="pimg-placeholder">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/>
+            <path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/>
+            <circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/>
+          </svg>
+          <span>Add Photo</span>
+        </div>
+      </div>
+      <div class="pname">Noir — Blue</div>
+    </div>
+
+  </div>
+
+  <div class="tagline">
+    <div class="tline"></div>
+    <div class="ttext">Premium Maternity Collection</div>
+    <div class="tline r"></div>
+  </div>
+
+  <!-- WHATSAPP: Replace +91XXXXXXXXXX with your number -->
+  <a class="wa-btn"
+     href="https://wa.me/+91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20Baglity%20maternity%20bags.%20Can%20you%20share%20more%20details%3F"
+     target="_blank">
+    <div class="wa-dot"></div>
+    Enquire on WhatsApp
+  </a>
+
+  <div class="social-label">
+    <svg width="70" height="12" viewBox="0 0 70 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="6" x2="52" y2="6" stroke="#C9A96E" stroke-width="0.8" opacity="0.7"/>
+      <rect x="58" y="3" width="6" height="6" transform="rotate(45 61 6)" fill="#C9A96E" opacity="0.9"/>
+    </svg>
+    <span>Follow us</span>
+    <svg width="70" height="12" viewBox="0 0 70 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="3" width="6" height="6" transform="rotate(45 7 6)" fill="#C9A96E" opacity="0.9"/>
+      <line x1="18" y1="6" x2="70" y2="6" stroke="#C9A96E" stroke-width="0.8" opacity="0.7"/>
+    </svg>
+  </div>
+  <div class="social-row">
+    <!-- SOCIAL: Replace YOUR_HANDLE / YOUR_PAGE / YOUR_CHANNEL with your actual links -->
+    <a class="social-icon" href="https://www.instagram.com/YOUR_HANDLE" target="_blank" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="0.8" fill="#C9A96E" stroke="none"/>
+      </svg>
+    </a>
+    <a class="social-icon" href="https://www.facebook.com/YOUR_PAGE" target="_blank" title="Facebook">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+    </a>
+    <a class="social-icon" href="https://www.youtube.com/@YOUR_CHANNEL" target="_blank" title="YouTube">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="5" width="20" height="14" rx="4"/>
+        <polygon points="10,9 16,12 10,15" fill="#C9A96E" stroke="none"/>
+      </svg>
+    </a>
+    <a class="social-icon" href="https://twitter.com/YOUR_HANDLE" target="_blank" title="Twitter / X">
+      <svg viewBox="0 0 24 24" fill="#C9A96E" stroke="none">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </a>
+    <a class="social-icon" href="https://www.threads.net/@YOUR_HANDLE" target="_blank" title="Threads">
+      <svg viewBox="0 0 24 24" fill="#C9A96E" stroke="none">
+        <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.5 12.068c0-3.51.85-6.362 2.495-8.42C5.845 1.344 8.599.161 12.18.136h.014c2.746.018 5.1.818 6.998 2.376 1.798 1.476 2.989 3.564 3.538 6.206l-2.017.387c-.457-2.18-1.417-3.875-2.852-5.036-1.492-1.203-3.457-1.833-5.662-1.846H12.18c-3.028.018-5.378 1.003-6.985 2.926C3.71 7.026 3 9.356 3 12.068c0 2.718.71 5.048 2.113 6.93C6.72 20.996 9.07 21.978 12.098 22h.088c2.506-.014 4.44-.72 5.748-2.1 1.37-1.443 2.054-3.603 2.054-6.042v-.368c-.09-1.696-.55-3.01-1.367-3.9-.756-.826-1.782-1.27-2.963-1.308-.163 0-.325.004-.487.014-.094.006-.188.015-.282.026.108.324.168.666.168 1.017 0 1.657-1.343 3.002-3 3.002s-3-1.345-3-3.002 1.343-3.002 3-3.002c.328 0 .643.053.938.15.366-1.14 1.063-2.032 2.036-2.63.845-.519 1.854-.785 2.974-.785h.028c1.758.023 3.24.691 4.28 1.933 1.056 1.26 1.624 3.082 1.73 5.42v.384c0 2.92-.857 5.52-2.481 7.242C19.27 23.116 16.954 24 14.186 24h-2z"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="bottom-rule">
+    <div class="line"></div>
+    <span>Baglity · India</span>
+    <div class="line r"></div>
+  </div>
+
+</div>
+
+<script>
+const canvas = document.getElementById('starsCanvas');
+const ctx = canvas.getContext('2d');
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const sparkles = Array.from({length: 55}, (_, i) => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  size: Math.random() * 1.8 + 0.6,
+  opacity: Math.random(),
+  speed: Math.random() * 0.012 + 0.005,
+  phase: Math.random() * Math.PI * 2,
+  type: i % 3 === 0 ? 'cross' : i % 5 === 0 ? 'big_cross' : 'dot',
+  color: Math.random() > 0.5 ? '#C9A96E' : '#F5EDD8'
+}));
+
+const INIT_DELAYS = [30, 450, 870, 1290, 1710];
+
+class ShootingStar {
+  constructor(initDelay) {
+    this.waiting = true; this.waitTimer = 0; this.waitTarget = initDelay;
+    this.active = false; this.progress = 0; this._spawn();
+  }
+  _spawn() {
+    const W = canvas.width, H = canvas.height;
+    const edge = Math.floor(Math.random() * 3);
+    if (edge === 0)      { this.sx = Math.random() * W * 0.5;  this.sy = Math.random() * H * 0.3; }
+    else if (edge === 1) { this.sx = -10;                        this.sy = Math.random() * H * 0.5; }
+    else                 { this.sx = Math.random() * W * 0.4;  this.sy = -10; }
+    this.trailLen  = Math.random() * 140 + 160;
+    this.totalDist = this.trailLen + 200;
+    this.speed     = Math.random() * 1.2 + 0.8;
+    this.angle     = Math.PI / 4 + (Math.random() - 0.5) * 0.4;
+    this.color     = Math.random() > 0.4 ? '#C9A96E' : '#F5EDD8';
+    this.lineW     = Math.random() * 1 + 1.4;
+    this.progress  = 0;
+  }
+  update() {
+    if (this.waiting) {
+      this.waitTimer++;
+      if (this.waitTimer >= this.waitTarget) { this.waiting = false; this.active = true; this._spawn(); }
+      return;
+    }
+    if (this.active) {
+      this.progress += this.speed;
+      if (this.progress >= this.totalDist) {
+        this.active = false; this.waiting = true; this.waitTimer = 0;
+        this.waitTarget = 360 + Math.random() * 120;
+      }
+    }
+  }
+  opacity() {
+    const fi = 60, fo = 80;
+    if (this.progress < fi) return this.progress / fi;
+    if (this.progress > this.totalDist - fo) return Math.max(0, (this.totalDist - this.progress) / fo);
+    return 1;
+  }
+  draw() {
+    if (!this.active) return;
+    const op = this.opacity(); if (op <= 0) return;
+    const hx = this.sx + Math.cos(this.angle) * this.progress;
+    const hy = this.sy + Math.sin(this.angle) * this.progress;
+    const td = Math.min(this.progress, this.trailLen);
+    const tx = hx - Math.cos(this.angle) * td;
+    const ty = hy - Math.sin(this.angle) * td;
+    const a  = Math.floor(op * 255).toString(16).padStart(2,'0');
+    const grad = ctx.createLinearGradient(tx,ty,hx,hy);
+    grad.addColorStop(0, `${this.color}00`);
+    grad.addColorStop(0.6, `${this.color}${Math.floor(op*120).toString(16).padStart(2,'0')}`);
+    grad.addColorStop(1, `${this.color}${a}`);
+    ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(hx,hy);
+    ctx.strokeStyle=grad; ctx.lineWidth=this.lineW; ctx.lineCap='round'; ctx.stroke();
+    const gr = ctx.createRadialGradient(hx,hy,0,hx,hy,6);
+    gr.addColorStop(0,`${this.color}${a}`); gr.addColorStop(1,`${this.color}00`);
+    ctx.beginPath(); ctx.arc(hx,hy,6,0,Math.PI*2); ctx.fillStyle=gr; ctx.fill();
+  }
+}
+
+const shooters = INIT_DELAYS.map(d => new ShootingStar(d));
+
+function drawCross(x, y, size, op, color, big) {
+  ctx.save(); ctx.globalAlpha = op; ctx.strokeStyle = color;
+  ctx.lineWidth = big ? 0.9 : 0.7;
+  const arm = big ? size * 3.5 : size * 2.5;
+  ctx.beginPath(); ctx.moveTo(x-arm,y); ctx.lineTo(x+arm,y); ctx.moveTo(x,y-arm); ctx.lineTo(x,y+arm); ctx.stroke();
+  if (big) { ctx.lineWidth=0.4; ctx.beginPath(); ctx.moveTo(x-arm*.6,y-arm*.6); ctx.lineTo(x+arm*.6,y+arm*.6); ctx.moveTo(x+arm*.6,y-arm*.6); ctx.lineTo(x-arm*.6,y+arm*.6); ctx.stroke(); }
+  ctx.restore();
+}
+
+let frame = 0;
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  frame++;
+  sparkles.forEach(s => {
+    s.opacity = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(frame * s.speed + s.phase));
+    if (s.type === 'big_cross') drawCross(s.x, s.y, s.size, s.opacity*0.85, s.color, true);
+    else if (s.type === 'cross') drawCross(s.x, s.y, s.size, s.opacity*0.7, s.color, false);
+    else { ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI*2); ctx.fillStyle=s.color; ctx.globalAlpha=s.opacity; ctx.fill(); ctx.globalAlpha=1; }
+  });
+  shooters.forEach(s => { s.update(); s.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+<!-- ============================================================
+     POPUP OVERLAY — added below existing code, nothing above changed
+============================================================ -->
+<style>
+  /* Popup overlay */
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .popup-overlay.active { display: flex; }
+
+  .popup-box {
+    background: #0F0D0A;
+    border: 1px solid #6A5A3A;
+    width: 90%;
+    max-width: 480px;
+    position: relative;
+    padding: 32px 28px 28px;
+    text-align: center;
+    box-shadow: 0 0 40px #C9A96E22;
+    animation: popIn 0.3s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* Close button */
+  .popup-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 14px;
+    color: #F5EDD8;
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    line-height: 1;
+    transition: color 0.2s, box-shadow 0.2s;
+    background: transparent;
+    border: none;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .popup-close:hover { color: #C9A96E; }
+
+  /* Bag description */
+  .popup-desc {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #E8C060;
+    font-weight: 400;
+    line-height: 1.9;
+    margin-bottom: 18px;
+    text-align: center;
+    padding: 0 4px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  /* Popup title */
+  .popup-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 6px;
+    color: #F5EDD8;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    text-shadow: 0 0 20px #C9A96E44;
+  }
+  .popup-sub {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #E8C060;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  /* Photo gallery — 6 photos, 3 per row */
+  .popup-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .popup-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid #6A5A3A;
+    background: rgba(20,16,8,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .popup-photo:hover { border-color: #C9A96E; box-shadow: 0 0 10px #C9A96E33; }
+  .popup-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .popup-photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .popup-photo-placeholder svg { opacity: 0.35; width: 32px; height: 32px; }
+  .popup-photo-placeholder span {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #888;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 200;
+  }
+
+  /* Popup divider */
+  .popup-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .popup-divider .dl { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #C9A96E88); }
+  .popup-divider .dl.r { background: linear-gradient(90deg, #C9A96E88, transparent); }
+  .popup-divider span { font-size: 10px; color: #C9A96E; opacity: 0.7; }
+
+  /* Popup WhatsApp button */
+  .popup-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #6A5A3A;
+    color: #F5EDD8;
+    padding: 14px 36px;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(0,0,0,0.6);
+    text-decoration: none;
+    transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+  .popup-wa:hover {
+    border-color: #C9A96E;
+    box-shadow: 0 0 18px #C9A96E55, 0 0 40px #C9A96E22;
+    transform: translateY(-2px);
+  }
+  .popup-wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; box-shadow: 0 0 6px #25D36688; flex-shrink: 0; }
+
+  /* Fullscreen photo viewer */
+  .fullscreen-viewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.97);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .fullscreen-viewer.active { display: flex; }
+  .fullscreen-viewer img {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    border: none;
+    box-shadow: none;
+  }
+  .fullscreen-placeholder {
+    width: 320px;
+    height: 320px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #888;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+  .fullscreen-placeholder svg { width: 48px; height: 48px; opacity: 0.3; }
+  .fullscreen-close {
+    position: absolute;
+    top: 20px; right: 24px;
+    font-size: 28px;
+    color: #6A5A3A;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    transition: color 0.2s;
+  }
+  .fullscreen-close:hover { color: #C9A96E; }
+  .fullscreen-caption {
+    margin-top: 16px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #E8C060;
+    text-transform: uppercase;
+  }
+  /* Nav arrows */
+  .fullscreen-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid #6A5A3A;
+    color: #C9A96E;
+    font-size: 20px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .fullscreen-nav:hover { border-color: #C9A96E; box-shadow: 0 0 10px #C9A96E44; }
+  .fullscreen-nav.prev { left: 20px; }
+  .fullscreen-nav.next { right: 20px; }
+</style>
+
+<!-- BLACK BAG POPUP -->
+<div class="popup-overlay" id="popup-black">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popup-black')">✕</button>
+    <div class="popup-title">Maternity Bag — Black</div>
+    <!-- DESCRIPTION: Update this text with your actual bag details -->
+    <div class="popup-desc">Premium quality · Spacious compartments · Waterproof lining · Ergonomic handles · Stylish & functional · Perfect for new moms</div>
+    <div class="popup-gallery" id="gallery-black">
+      <!-- TO ADD PHOTOS: replace placeholder divs with <img src="black-bag-1.jpg"> inside .popup-photo -->
+      <div class="popup-photo" onclick="openFullscreen('black',0)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 1</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('black',1)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 2</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('black',2)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 3</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('black',3)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 4</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('black',4)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 5</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('black',5)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 6</span></div></div>
+    </div>
+    <div class="popup-divider"><div class="dl"></div><span>✦</span><div class="dl r"></div></div>
+    <a class="popup-wa" href="https://wa.me/+91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Black%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
+      <div class="popup-wa-dot"></div>Order on WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- BLUE BAG POPUP -->
+<div class="popup-overlay" id="popup-blue">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popup-blue')">✕</button>
+    <div class="popup-title">Maternity Bag — Blue</div>
+    <!-- DESCRIPTION: Update this text with your actual bag details -->
+    <div class="popup-desc">Premium quality · Spacious compartments · Waterproof lining · Ergonomic handles · Stylish &amp; functional · Perfect for new moms</div>
+    <div class="popup-gallery" id="gallery-blue">
+      <!-- TO ADD PHOTOS: replace placeholder divs with <img src="blue-bag-1.jpg"> inside .popup-photo -->
+      <div class="popup-photo" onclick="openFullscreen('blue',0)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 1</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',1)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 2</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',2)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 3</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',3)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 4</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',4)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 5</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',5)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 6</span></div></div>
+    </div>
+    <div class="popup-divider"><div class="dl"></div><span>✦</span><div class="dl r"></div></div>
+    <a class="popup-wa" href="https://wa.me/+91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Blue%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
+      <div class="popup-wa-dot"></div>Order on WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- FULLSCREEN VIEWER -->
+<div class="fullscreen-viewer" id="fullscreen-viewer">
+  <button class="fullscreen-close" onclick="closeFullscreen()">✕</button>
+  <button class="fullscreen-nav prev" onclick="navFullscreen(-1)">&#8592;</button>
+  <div id="fullscreen-content"></div>
+  <div class="fullscreen-caption" id="fullscreen-caption"></div>
+  <button class="fullscreen-nav next" onclick="navFullscreen(1)">&#8594;</button>
+</div>
+
+<script>
+// ── Popup functions ──
+function openPopup(id) {
+  document.getElementById(id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closePopup(id) {
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.popup-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) closePopup(this.id);
+  });
+});
+
+// ── Fullscreen viewer ──
+let fsPhotos = [];
+let fsIndex  = 0;
+
+function openFullscreen(bag, index) {
+  const gallery = document.getElementById('gallery-' + bag);
+  const photos  = gallery.querySelectorAll('.popup-photo');
+  fsPhotos = Array.from(photos).map((p, i) => {
+    const img = p.querySelector('img');
+    return img ? { src: img.src, label: 'Photo ' + (i+1) } : { src: null, label: 'Photo ' + (i+1) };
+  });
+  fsIndex = index;
+  renderFullscreen();
+  document.getElementById('fullscreen-viewer').classList.add('active');
+}
+
+function renderFullscreen() {
+  const content = document.getElementById('fullscreen-content');
+  const caption = document.getElementById('fullscreen-caption');
+  const photo   = fsPhotos[fsIndex];
+  if (photo.src) {
+    content.innerHTML = '<img src="' + photo.src + '" alt="' + photo.label + '">';
+  } else {
+    content.innerHTML = '<div class="fullscreen-placeholder"><svg viewBox="0 0 32 32" fill="none" style="width:48px;height:48px"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>' + photo.label + '</span></div>';
+  }
+  caption.textContent = (fsIndex + 1) + ' / ' + fsPhotos.length;
+}
+
+function navFullscreen(dir) {
+  fsIndex = (fsIndex + dir + fsPhotos.length) % fsPhotos.length;
+  renderFullscreen();
+}
+
+function closeFullscreen() {
+  document.getElementById('fullscreen-viewer').classList.remove('active');
+}
+
+// Close fullscreen on background click
+document.getElementById('fullscreen-viewer').addEventListener('click', function(e) {
+  if (e.target === this) closeFullscreen();
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('fullscreen-viewer').classList.contains('active')) {
+      closeFullscreen();
+    } else {
+      document.querySelectorAll('.popup-overlay.active').forEach(p => closePopup(p.id));
+    }
+  }
+  if (e.key === 'ArrowRight') navFullscreen(1);
+  if (e.key === 'ArrowLeft')  navFullscreen(-1);
+});
+
+// ── Auto-open popup from URL parameter ──
+// Taplink black bag URL: yourdomain.com?bag=black
+// Taplink blue bag URL:  yourdomain.com?bag=blue
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
+  const bag = params.get('bag');
+  if (bag === 'black') openPopup('popup-black');
+  if (bag === 'blue')  openPopup('popup-blue');
+});
+</script>
+</script>
+</body>
+</html>
