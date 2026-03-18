@@ -82,10 +82,10 @@
   .mid-ornament .star { color: #E8C88A; font-size: 16px; opacity: 1; }
 
   /* Products */
-  .products { display: flex; gap: 24px; justify-content: center; margin: 22px 0; }
+  .products { display: flex; gap: 20px; justify-content: center; margin: 22px 0; }
 
   .pbox {
-    width: 180px;
+    width: 200px;
     border: 1px solid #6A5A3A;
     position: relative;
     overflow: hidden;
@@ -137,6 +137,11 @@
     position: relative;
     z-index: 3;
     transition: color 0.35s, background 0.35s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 10px;
+    letter-spacing: 2px;
   }
   .pbox:hover .pname { color:#F5EDD8; background:rgba(30,20,5,0.95); border-top-color:#C9A96E44; }
 
@@ -306,7 +311,7 @@
           <span>Add Photo</span>
         </div>
       </div>
-      <div class="pname">Noir — Black</div>
+      <div class="pname">Maternity Bag — Black</div>
     </div>
 
     <!-- BLUE BAG -->
@@ -323,7 +328,7 @@
           <span>Add Photo</span>
         </div>
       </div>
-      <div class="pname">Noir — Blue</div>
+      <div class="pname">Maternity Bag — Blue</div>
     </div>
 
   </div>
@@ -334,12 +339,12 @@
     <div class="tline r"></div>
   </div>
 
-  <!-- WHATSAPP: Replace +91XXXXXXXXXX with your number -->
+  <!-- WHATSAPP: Replace 918610323806 with your number -->
   <a class="wa-btn"
-     href="https://wa.me/+91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20Baglity%20maternity%20bags.%20Can%20you%20share%20more%20details%3F"
+     href="https://wa.me/918610323806?text=Hi%2C%20I%27m%20interested%20in%20Baglity%20maternity%20bags.%20Can%20you%20share%20more%20details%3F"
      target="_blank">
     <div class="wa-dot"></div>
-    Enquire on WhatsApp
+    Get Yours on WhatsApp
   </a>
 
   <div class="social-label">
@@ -355,30 +360,30 @@
   </div>
   <div class="social-row">
     <!-- SOCIAL: Replace YOUR_HANDLE / YOUR_PAGE / YOUR_CHANNEL with your actual links -->
-    <a class="social-icon" href="https://www.instagram.com/YOUR_HANDLE" target="_blank" title="Instagram">
+    <a class="social-icon" href="#" target="_blank" title="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5"/>
         <circle cx="12" cy="12" r="4"/>
         <circle cx="17.5" cy="6.5" r="0.8" fill="#C9A96E" stroke="none"/>
       </svg>
     </a>
-    <a class="social-icon" href="https://www.facebook.com/YOUR_PAGE" target="_blank" title="Facebook">
+    <a class="social-icon" href="#" target="_blank" title="Facebook">
       <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round">
         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
       </svg>
     </a>
-    <a class="social-icon" href="https://www.youtube.com/@YOUR_CHANNEL" target="_blank" title="YouTube">
+    <a class="social-icon" href="#" target="_blank" title="YouTube">
       <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <rect x="2" y="5" width="20" height="14" rx="4"/>
         <polygon points="10,9 16,12 10,15" fill="#C9A96E" stroke="none"/>
       </svg>
     </a>
-    <a class="social-icon" href="https://twitter.com/YOUR_HANDLE" target="_blank" title="Twitter / X">
+    <a class="social-icon" href="#" target="_blank" title="Twitter / X">
       <svg viewBox="0 0 24 24" fill="#C9A96E" stroke="none">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
       </svg>
     </a>
-    <a class="social-icon" href="https://www.threads.net/@YOUR_HANDLE" target="_blank" title="Threads">
+    <a class="social-icon" href="#" target="_blank" title="Threads">
       <svg viewBox="0 0 24 24" fill="#C9A96E" stroke="none">
         <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.5 12.068c0-3.51.85-6.362 2.495-8.42C5.845 1.344 8.599.161 12.18.136h.014c2.746.018 5.1.818 6.998 2.376 1.798 1.476 2.989 3.564 3.538 6.206l-2.017.387c-.457-2.18-1.417-3.875-2.852-5.036-1.492-1.203-3.457-1.833-5.662-1.846H12.18c-3.028.018-5.378 1.003-6.985 2.926C3.71 7.026 3 9.356 3 12.068c0 2.718.71 5.048 2.113 6.93C6.72 20.996 9.07 21.978 12.098 22h.088c2.506-.014 4.44-.72 5.748-2.1 1.37-1.443 2.054-3.603 2.054-6.042v-.368c-.09-1.696-.55-3.01-1.367-3.9-.756-.826-1.782-1.27-2.963-1.308-.163 0-.325.004-.487.014-.094.006-.188.015-.282.026.108.324.168.666.168 1.017 0 1.657-1.343 3.002-3 3.002s-3-1.345-3-3.002 1.343-3.002 3-3.002c.328 0 .643.053.938.15.366-1.14 1.063-2.032 2.036-2.63.845-.519 1.854-.785 2.974-.785h.028c1.758.023 3.24.691 4.28 1.933 1.056 1.26 1.624 3.082 1.73 5.42v.384c0 2.92-.857 5.52-2.481 7.242C19.27 23.116 16.954 24 14.186 24h-2z"/>
       </svg>
@@ -755,7 +760,7 @@ animate();
     <button class="popup-close" onclick="closePopup('popup-black')">✕</button>
     <div class="popup-title">Maternity Bag — Black</div>
     <!-- DESCRIPTION: Update this text with your actual bag details -->
-    <div class="popup-desc">Premium quality · Spacious compartments · Waterproof lining · Ergonomic handles · Stylish & functional · Perfect for new moms</div>
+    <div class="popup-desc">Diaper Bag for Mothers for Travel with Warranty · Maternity Bag for Newborn Baby · Mothers Travelling Bag · Multipocket Water Resistant Baby Bag · Hospital Bag for Moms</div>
     <div class="popup-gallery" id="gallery-black">
       <!-- TO ADD PHOTOS: replace placeholder divs with <img src="black-bag-1.jpg"> inside .popup-photo -->
       <div class="popup-photo" onclick="openFullscreen('black',0)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 1</span></div></div>
@@ -766,8 +771,8 @@ animate();
       <div class="popup-photo" onclick="openFullscreen('black',5)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 6</span></div></div>
     </div>
     <div class="popup-divider"><div class="dl"></div><span>✦</span><div class="dl r"></div></div>
-    <a class="popup-wa" href="https://wa.me/+91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Black%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
-      <div class="popup-wa-dot"></div>Order on WhatsApp
+    <a class="popup-wa" href="https://wa.me/918610323806?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Black%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
+      <div class="popup-wa-dot"></div>Get Yours on WhatsApp
     </a>
   </div>
 </div>
@@ -778,7 +783,7 @@ animate();
     <button class="popup-close" onclick="closePopup('popup-blue')">✕</button>
     <div class="popup-title">Maternity Bag — Blue</div>
     <!-- DESCRIPTION: Update this text with your actual bag details -->
-    <div class="popup-desc">Premium quality · Spacious compartments · Waterproof lining · Ergonomic handles · Stylish &amp; functional · Perfect for new moms</div>
+    <div class="popup-desc">Diaper Bag for Mothers for Travel with Warranty · Maternity Bag for Newborn Baby · Mothers Travelling Bag · Multipocket Water Resistant Baby Bag · Hospital Bag for Moms</div>
     <div class="popup-gallery" id="gallery-blue">
       <!-- TO ADD PHOTOS: replace placeholder divs with <img src="blue-bag-1.jpg"> inside .popup-photo -->
       <div class="popup-photo" onclick="openFullscreen('blue',0)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 1</span></div></div>
@@ -789,8 +794,8 @@ animate();
       <div class="popup-photo" onclick="openFullscreen('blue',5)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 6</span></div></div>
     </div>
     <div class="popup-divider"><div class="dl"></div><span>✦</span><div class="dl r"></div></div>
-    <a class="popup-wa" href="https://wa.me/+91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Blue%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
-      <div class="popup-wa-dot"></div>Order on WhatsApp
+    <a class="popup-wa" href="https://wa.me/918610323806?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Blue%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
+      <div class="popup-wa-dot"></div>Get Yours on WhatsApp
     </a>
   </div>
 </div>
