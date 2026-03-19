@@ -317,16 +317,7 @@
     <!-- BLUE BAG -->
     <div class="pbox" onclick="openPopup('popup-blue')" style="cursor:pointer">
       <div class="pimg">
-        <!-- TO ADD PHOTO: save as blue-bag.jpg, uncomment img, delete pimg-placeholder div -->
-        <!-- <img src="blue-bag.jpg" alt="Baglity Noir Blue"> -->
-        <div class="pimg-placeholder">
-          <svg viewBox="0 0 32 32" fill="none">
-            <rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/>
-            <path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/>
-            <circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/>
-          </svg>
-          <span>Add Photo</span>
-        </div>
+        <img src="blue-bag-1.jpg" alt="Baglity Blue Maternity Bag">
       </div>
       <div class="pname">Maternity Bag — Blue</div>
     </div>
@@ -785,13 +776,12 @@ animate();
     <!-- DESCRIPTION: Update this text with your actual bag details -->
     <div class="popup-desc">Diaper Bag for Mothers for Travel with Warranty · Maternity Bag for Newborn Baby · Mothers Travelling Bag · Multipocket Water Resistant Baby Bag · Hospital Bag for Moms</div>
     <div class="popup-gallery" id="gallery-blue">
-      <!-- TO ADD PHOTOS: replace placeholder divs with <img src="blue-bag-1.jpg"> inside .popup-photo -->
-      <div class="popup-photo" onclick="openFullscreen('blue',0)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 1</span></div></div>
-      <div class="popup-photo" onclick="openFullscreen('blue',1)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 2</span></div></div>
-      <div class="popup-photo" onclick="openFullscreen('blue',2)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 3</span></div></div>
-      <div class="popup-photo" onclick="openFullscreen('blue',3)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 4</span></div></div>
-      <div class="popup-photo" onclick="openFullscreen('blue',4)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 5</span></div></div>
-      <div class="popup-photo" onclick="openFullscreen('blue',5)"><div class="popup-photo-placeholder"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="16" rx="2" stroke="#C9A96E" stroke-width="1"/><path d="M11 10 Q11 6 16 6 Q21 6 21 10" stroke="#C9A96E" stroke-width="1" fill="none"/><circle cx="16" cy="18" r="2" stroke="#C9A96E" stroke-width="0.8"/></svg><span>Photo 6</span></div></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',0)"><img src="blue-bag-1.jpg" alt="Blue Bag 1"></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',1)"><img src="blue-bag-2.jpg" alt="Blue Bag 2"></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',2)"><img src="blue-bag-3.jpg" alt="Blue Bag 3"></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',3)"><img src="blue-bag-4.jpg" alt="Blue Bag 4"></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',4)"><img src="blue-bag-5.jpg" alt="Blue Bag 5"></div>
+      <div class="popup-photo" onclick="openFullscreen('blue',5)"><img src="blue-bag-6.jpg" alt="Blue Bag 6"></div>
     </div>
     <div class="popup-divider"><div class="dl"></div><span>✦</span><div class="dl r"></div></div>
     <a class="popup-wa" href="https://wa.me/918610323806?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Blue%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
@@ -883,11 +873,11 @@ document.addEventListener('keydown', e => {
 // ── Auto-open popup from URL parameter ──
 // Taplink black bag URL: yourdomain.com?bag=black
 // Taplink blue bag URL:  yourdomain.com?bag=blue
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const bag = params.get('bag');
-  if (bag === 'black') openPopup('popup-black');
-  if (bag === 'blue')  openPopup('popup-blue');
+  if (bag === 'black') setTimeout(() => openPopup('popup-black'), 500);
+  if (bag === 'blue')  setTimeout(() => openPopup('popup-blue'), 500);
 });
 </script>
 </script>
