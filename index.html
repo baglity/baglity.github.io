@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Baglity – Premium Maternity Collection</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&family=Archivo+Black&family=Sour+Gummy:wght@400&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y94329JLHE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y94329JLHE');
+</script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -86,6 +95,7 @@
 
   .pbox {
     width: 200px;
+    max-width: 200px;
     border: 1px solid #6A5A3A;
     position: relative;
     overflow: hidden;
@@ -113,8 +123,9 @@
     position: relative;
     z-index: 3;
     overflow: hidden;
+    max-height: 190px;
   }
-  .pimg img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+  .pimg img { width:100%; height:100%; object-fit:cover; object-position: center top; display:block; transition:transform 0.4s; }
   .pbox:hover .pimg img { transform:scale(1.05); }
 
   .pimg-placeholder { display:flex; flex-direction:column; align-items:center; gap:10px; }
