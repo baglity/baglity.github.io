@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Baglity – Premium Maternity Collection</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&family=Archivo+Black&family=Sour+Gummy:wght@400&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -189,7 +189,7 @@
   .wa-btn:hover { border-color:#C9A96E; box-shadow:0 0 18px #C9A96E55,0 0 40px #C9A96E22,inset 0 0 20px #C9A96E0A; transform:translateY(-2px); }
   .wa-btn::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,#C9A96E00,#C9A96E0D,#C9A96E00); opacity:0; transition:opacity 0.35s; pointer-events:none; }
   .wa-btn:hover::after { opacity:1; }
-  .wa-dot { width:10px; height:10px; background:#25D366; border-radius:50%; box-shadow:0 0 8px #25D36699; flex-shrink:0; }
+  .wa-icon { width: 22px; height: 22px; flex-shrink: 0; }
 
   /* Social */
   .social-row { display:flex; align-items:center; justify-content:center; gap:16px; margin-top:28px; }
@@ -211,7 +211,41 @@
   .bottom-rule .line.r { background:linear-gradient(90deg,#C9A96EBB,transparent); }
   .bottom-rule span { font-size:11px; letter-spacing:5px; color:#F5EDD8; font-family:'Josefin Sans',sans-serif; font-weight:400; text-transform:uppercase; }
 
-  @media (max-width: 600px) {
+  /* Online badge */
+  .online-badge {
+    position: fixed;
+    top: 18px;
+    right: 20px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(10,8,4,0.85);
+    border: 1px solid #C9A96E55;
+    padding: 7px 14px;
+    backdrop-filter: blur(6px);
+  }
+  .online-dot {
+    width: 12px;
+    height: 12px;
+    background: #25D366;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: blinkDot 1.6s ease-in-out infinite;
+    box-shadow: 0 0 8px #25D366AA;
+  }
+  @keyframes blinkDot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 6px #25D36699; }
+    50%       { opacity: 0.3; box-shadow: none; }
+  }
+  .online-text {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #F5EDD8;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
     .logo-text { font-size: 48px; letter-spacing: 10px; }
     .sub { font-size: 10px; letter-spacing: 3px; text-indent: -3px; white-space: nowrap; }
     .wa-btn { font-size: 12px; letter-spacing: 3px; padding: 14px 24px; white-space: nowrap; }
@@ -221,11 +255,83 @@
     .pimg { height: 44vw; }
     .tagline .ttext { font-size: 9px; letter-spacing: 2px; }
   }
+
+  /* Review ticker carousel */
+  .ticker-wrap {
+    width: 100%;
+    margin: 40px 0 22px;
+  }
+  .ticker-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #C9A96E;
+    text-transform: uppercase;
+  }
+  .ticker-outer {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: tickerScroll 28s linear infinite;
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+  @keyframes tickerScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .review-card {
+    flex-shrink: 0;
+    width: 220px;
+    background: rgba(20,14,6,0.85);
+    border: 1px solid #6A5A3A;
+    padding: 14px 16px;
+    text-align: left;
+    transition: border-color 0.3s;
+  }
+  .review-card:hover { border-color: #C9A96E; }
+  .review-stars {
+    color: #E8C060;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .review-text {
+    font-family: 'Sour Gummy', sans-serif;
+    font-size: 11px;
+    color: #F5EDD8;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .review-author {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #C9A96E;
+    text-transform: uppercase;
+  }
 </style>
 </head>
 <body>
 
 <canvas id="starsCanvas"></canvas>
+
+<!-- ONLINE BADGE -->
+<div class="online-badge">
+  <div class="online-dot"></div>
+  <span class="online-text">We are Online</span>
+</div>
 
 <svg class="bg-svg" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
   <defs>
@@ -325,9 +431,85 @@
   <a class="wa-btn"
      href="https://wa.me/918610323806?text=Hi%2C%20I%27m%20interested%20in%20Baglity%20maternity%20bags.%20Can%20you%20share%20more%20details%3F"
      target="_blank">
-    <div class="wa-dot"></div>
+    <svg class="wa-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.5 8.5A10.44 10.44 0 0 0 16 5.5a10.5 10.5 0 0 0-9.1 15.7L5.5 26.5l5.5-1.4A10.5 10.5 0 0 0 26.5 16a10.44 10.44 0 0 0-3-7.5zm-7.5 16a8.7 8.7 0 0 1-4.4-1.2l-.3-.2-3.2.8.9-3.1-.2-.3A8.75 8.75 0 1 1 16 24.5zm4.8-6.5c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1.1-.3.2-.5.1a7.27 7.27 0 0 1-2.1-1.3 7.84 7.84 0 0 1-1.5-1.8c-.2-.3 0-.4.1-.6l.4-.5.2-.4v-.4l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.24 5.24 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4 13.42 13.42 0 0 0 1.5.6 3.56 3.56 0 0 0 1.6.1 2.75 2.75 0 0 0 1.8-1.3 2.25 2.25 0 0 0 .2-1.3c-.2-.1-.4-.2-.7-.3z" fill="#fff"/></svg>
     Get Yours on WhatsApp
   </a>
+
+  <!-- REVIEW TICKER -->
+  <div class="bottom-rule" style="margin-top:28px; margin-bottom:0;"></div>
+  <div class="ticker-wrap">
+    <div class="ticker-label">
+      <div class="mline" style="width:40px"></div>
+      <span>✦ What Our Customers Say ✦</span>
+      <div class="mline" style="width:40px"></div>
+    </div>
+    <div class="ticker-outer">
+      <div class="ticker-track" id="tickerTrack">
+        <!-- Reviews duplicated for seamless loop -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Best maternity bag I've ever used. Spacious and stylish!"</div>
+          <div class="review-author">— Priya S.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Water resistant and so many pockets. Perfect for hospital!"</div>
+          <div class="review-author">— Anitha R.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Looks premium and fits everything for my newborn. Love it!"</div>
+          <div class="review-author">— Meera K.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Got so many compliments at the hospital. Beautiful bag!"</div>
+          <div class="review-author">— Divya M.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Fast delivery and packaging was gorgeous. Highly recommend!"</div>
+          <div class="review-author">— Lakshmi P.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"The blue colour is stunning. My husband loves it too!"</div>
+          <div class="review-author">— Sneha T.</div>
+        </div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Best maternity bag I've ever used. Spacious and stylish!"</div>
+          <div class="review-author">— Priya S.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Water resistant and so many pockets. Perfect for hospital!"</div>
+          <div class="review-author">— Anitha R.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Looks premium and fits everything for my newborn. Love it!"</div>
+          <div class="review-author">— Meera K.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Got so many compliments at the hospital. Beautiful bag!"</div>
+          <div class="review-author">— Divya M.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"Fast delivery and packaging was gorgeous. Highly recommend!"</div>
+          <div class="review-author">— Lakshmi P.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"The blue colour is stunning. My husband loves it too!"</div>
+          <div class="review-author">— Sneha T.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="social-label">
     <svg width="70" height="12" viewBox="0 0 70 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -506,17 +688,17 @@ animate();
 
   .popup-box {
     background: #0F0D0A;
-    border: 1px solid #6A5A3A;
+    border: 2.5px solid #C9A96E;
     width: 90%;
     max-width: 480px;
     position: relative;
     padding: 32px 28px 28px;
     text-align: center;
-    box-shadow: 0 0 40px #C9A96E22;
-    animation: popIn 0.3s ease;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    animation: popIn 0.35s ease;
   }
   @keyframes popIn {
-    from { opacity: 0; transform: scale(0.95); }
+    from { opacity: 0; transform: scale(0.93); }
     to   { opacity: 1; transform: scale(1); }
   }
 
@@ -524,32 +706,38 @@ animate();
   .popup-close {
     position: absolute;
     top: 12px;
-    right: 14px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
     font-size: 14px;
-    color: #F5EDD8;
+    font-weight: 700;
+    color: #000;
     cursor: pointer;
-    font-family: 'Josefin Sans', sans-serif;
-    font-weight: 600;
-    line-height: 1;
-    transition: color 0.2s, box-shadow 0.2s;
-    background: transparent;
+    background: #C9A96E;
     border: none;
-    width: 28px;
-    height: 28px;
+    font-family: 'Josefin Sans', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0 12px #C9A96EAA, 0 0 28px #C9A96E44;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    z-index: 10;
   }
-  .popup-close:hover { color: #C9A96E; }
+  .popup-close:hover {
+    background: #F5EDD8;
+    box-shadow: 0 0 20px #C9A96ECC, 0 0 50px #C9A96E66;
+    transform: scale(1.08);
+  }
 
   /* Bag description */
   .popup-desc {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    color: #E8C060;
+    font-family: 'Sour Gummy', sans-serif;
+    font-size: 13px;
     font-weight: 400;
-    line-height: 1.9;
+    font-style: normal;
+    letter-spacing: 0.5px;
+    color: #F0D898;
+    line-height: 2;
     margin-bottom: 18px;
     text-align: center;
     padding: 0 4px;
@@ -560,7 +748,7 @@ animate();
   /* Popup title */
   .popup-title {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 6px;
     color: #F5EDD8;
@@ -570,8 +758,8 @@ animate();
   }
   .popup-sub {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 9px;
-    letter-spacing: 4px;
+    font-size: 12px;
+    letter-spacing: 3px;
     color: #E8C060;
     text-transform: uppercase;
     font-weight: 600;
@@ -635,12 +823,13 @@ animate();
   .popup-wa {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     border: 1px solid #6A5A3A;
     color: #F5EDD8;
-    padding: 14px 36px;
-    font-size: 12px;
-    letter-spacing: 4px;
+    padding: 14px 24px;
+    font-size: 11px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 600;
@@ -650,13 +839,16 @@ animate();
     transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    box-sizing: border-box;
   }
   .popup-wa:hover {
     border-color: #C9A96E;
     box-shadow: 0 0 18px #C9A96E55, 0 0 40px #C9A96E22;
     transform: translateY(-2px);
   }
-  .popup-wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; box-shadow: 0 0 6px #25D36688; flex-shrink: 0; }
+  .popup-wa-icon { width: 20px; height: 20px; flex-shrink: 0; }
 
   /* Fullscreen photo viewer */
   .fullscreen-viewer {
@@ -696,16 +888,25 @@ animate();
   .fullscreen-placeholder svg { width: 48px; height: 48px; opacity: 0.3; }
   .fullscreen-close {
     position: absolute;
-    top: 20px; right: 24px;
-    font-size: 28px;
-    color: #6A5A3A;
+    top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
     cursor: pointer;
-    background: none;
+    background: #C9A96E;
     border: none;
     font-family: 'Josefin Sans', sans-serif;
-    transition: color 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 14px #C9A96EAA, 0 0 30px #C9A96E44;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    z-index: 30;
   }
-  .fullscreen-close:hover { color: #C9A96E; }
+  .fullscreen-close:hover {
+    background: #F5EDD8;
+    box-shadow: 0 0 20px #C9A96ECC, 0 0 50px #C9A96E66;
+    transform: scale(1.08);
+  }
   .fullscreen-caption {
     margin-top: 16px;
     font-family: 'Josefin Sans', sans-serif;
@@ -714,26 +915,83 @@ animate();
     color: #E8C060;
     text-transform: uppercase;
   }
-  /* Nav arrows */
+  /* Desktop arrow nav buttons */
   .fullscreen-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
+    background: rgba(10,8,4,0.6);
     border: 1px solid #6A5A3A;
     color: #C9A96E;
     font-size: 20px;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    z-index: 20;
   }
-  .fullscreen-nav:hover { border-color: #C9A96E; box-shadow: 0 0 10px #C9A96E44; }
-  .fullscreen-nav.prev { left: 20px; }
-  .fullscreen-nav.next { right: 20px; }
+  .fullscreen-nav:hover {
+    border-color: #C9A96E;
+    box-shadow: 0 0 18px #C9A96E66, 0 0 40px #C9A96E22;
+    background: rgba(20,14,4,0.85);
+  }
+  .fullscreen-nav.prev { left: 24px; }
+  .fullscreen-nav.next { right: 24px; }
+
+  /* Mobile swipe hint panels — left & right */
+  .swipe-panel {
+    position: absolute;
+    top: 0;
+    width: 72px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 10;
+  }
+  .swipe-panel.left  { left: 0;  background: linear-gradient(90deg, rgba(201,169,110,0.10), transparent); }
+  .swipe-panel.right { right: 0; background: linear-gradient(270deg, rgba(201,169,110,0.10), transparent); }
+  .swipe-panel.visible { opacity: 1; }
+
+  @keyframes pulseGlow {
+    0%,100% { box-shadow: 0 0 8px #C9A96E55, 0 0 20px #C9A96E22; opacity: 0.7; }
+    50%      { box-shadow: 0 0 18px #C9A96EAA, 0 0 40px #C9A96E55; opacity: 1; }
+  }
+  .swipe-panel .sp-arrow {
+    width: 36px; height: 36px;
+    border: 1px solid #C9A96E88;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: pulseGlow 1.6s ease-in-out infinite;
+    color: #C9A96E;
+    font-size: 16px;
+  }
+  .swipe-panel .sp-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #E8C060;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .swipe-panel.left  .sp-label { transform: rotate(180deg); }
+
+  /* Hide swipe panels on desktop, hide arrows on mobile */
+  @media (hover: hover) and (pointer: fine) {
+    .swipe-panel { display: none; }
+  }
+  @media (hover: none) and (pointer: coarse) {
+    .fullscreen-nav { display: none; }
+  }
 </style>
 
 <!-- BLACK BAG POPUP -->
@@ -754,7 +1012,7 @@ animate();
     </div>
     <div class="popup-divider"><div class="dl"></div><span>✦</span><div class="dl r"></div></div>
     <a class="popup-wa" href="https://wa.me/918610323806?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Black%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
-      <div class="popup-wa-dot"></div>Get Yours on WhatsApp
+      <svg class="popup-wa-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.5 8.5A10.44 10.44 0 0 0 16 5.5a10.5 10.5 0 0 0-9.1 15.7L5.5 26.5l5.5-1.4A10.5 10.5 0 0 0 26.5 16a10.44 10.44 0 0 0-3-7.5zm-7.5 16a8.7 8.7 0 0 1-4.4-1.2l-.3-.2-3.2.8.9-3.1-.2-.3A8.75 8.75 0 1 1 16 24.5zm4.8-6.5c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1.1-.3.2-.5.1a7.27 7.27 0 0 1-2.1-1.3 7.84 7.84 0 0 1-1.5-1.8c-.2-.3 0-.4.1-.6l.4-.5.2-.4v-.4l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.24 5.24 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4 13.42 13.42 0 0 0 1.5.6 3.56 3.56 0 0 0 1.6.1 2.75 2.75 0 0 0 1.8-1.3 2.25 2.25 0 0 0 .2-1.3c-.2-.1-.4-.2-.7-.3z" fill="#fff"/></svg>Get Yours on WhatsApp
     </a>
   </div>
 </div>
@@ -776,7 +1034,7 @@ animate();
     </div>
     <div class="popup-divider"><div class="dl"></div><span>✦</span><div class="dl r"></div></div>
     <a class="popup-wa" href="https://wa.me/918610323806?text=Hi%2C%20I%27m%20interested%20in%20the%20Baglity%20Blue%20Maternity%20Bag.%20Can%20you%20share%20more%20details%3F" target="_blank">
-      <div class="popup-wa-dot"></div>Get Yours on WhatsApp
+      <svg class="popup-wa-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.5 8.5A10.44 10.44 0 0 0 16 5.5a10.5 10.5 0 0 0-9.1 15.7L5.5 26.5l5.5-1.4A10.5 10.5 0 0 0 26.5 16a10.44 10.44 0 0 0-3-7.5zm-7.5 16a8.7 8.7 0 0 1-4.4-1.2l-.3-.2-3.2.8.9-3.1-.2-.3A8.75 8.75 0 1 1 16 24.5zm4.8-6.5c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1.1-.3.2-.5.1a7.27 7.27 0 0 1-2.1-1.3 7.84 7.84 0 0 1-1.5-1.8c-.2-.3 0-.4.1-.6l.4-.5.2-.4v-.4l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.24 5.24 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4 13.42 13.42 0 0 0 1.5.6 3.56 3.56 0 0 0 1.6.1 2.75 2.75 0 0 0 1.8-1.3 2.25 2.25 0 0 0 .2-1.3c-.2-.1-.4-.2-.7-.3z" fill="#fff"/></svg>Get Yours on WhatsApp
     </a>
   </div>
 </div>
@@ -784,10 +1042,23 @@ animate();
 <!-- FULLSCREEN VIEWER -->
 <div class="fullscreen-viewer" id="fullscreen-viewer">
   <button class="fullscreen-close" onclick="closeFullscreen()">✕</button>
+
+  <!-- Desktop arrows (hidden on touch devices) -->
   <button class="fullscreen-nav prev" onclick="navFullscreen(-1)">&#8592;</button>
+  <button class="fullscreen-nav next" onclick="navFullscreen(1)">&#8594;</button>
+
+  <!-- Mobile swipe hint panels (hidden on desktop) -->
+  <div class="swipe-panel left" id="swipe-left">
+    <div class="sp-arrow">&#8592;</div>
+    <div class="sp-label">Swipe</div>
+  </div>
+  <div class="swipe-panel right" id="swipe-right">
+    <div class="sp-arrow">&#8594;</div>
+    <div class="sp-label">Swipe</div>
+  </div>
+
   <div id="fullscreen-content"></div>
   <div class="fullscreen-caption" id="fullscreen-caption"></div>
-  <button class="fullscreen-nav next" onclick="navFullscreen(1)">&#8594;</button>
 </div>
 
 <script>
@@ -809,6 +1080,7 @@ document.querySelectorAll('.popup-overlay').forEach(overlay => {
 // ── Fullscreen viewer ──
 let fsPhotos = [];
 let fsIndex  = 0;
+let fsHintTimer = null;
 
 function openFullscreen(bag, index) {
   const gallery = document.getElementById('gallery-' + bag);
@@ -820,6 +1092,19 @@ function openFullscreen(bag, index) {
   fsIndex = index;
   renderFullscreen();
   document.getElementById('fullscreen-viewer').classList.add('active');
+  showSwipePanels();
+}
+
+function showSwipePanels() {
+  const l = document.getElementById('swipe-left');
+  const r = document.getElementById('swipe-right');
+  if (fsHintTimer) clearTimeout(fsHintTimer);
+  l.classList.add('visible');
+  r.classList.add('visible');
+  fsHintTimer = setTimeout(() => {
+    l.classList.remove('visible');
+    r.classList.remove('visible');
+  }, 2400);
 }
 
 function renderFullscreen() {
@@ -843,10 +1128,33 @@ function closeFullscreen() {
   document.getElementById('fullscreen-viewer').classList.remove('active');
 }
 
-// Close fullscreen on background click
-document.getElementById('fullscreen-viewer').addEventListener('click', function(e) {
-  if (e.target === this) closeFullscreen();
-});
+// Only the ✕ button closes fullscreen
+
+// ── Touch swipe support ──
+let touchStartX = 0;
+let touchStartY = 0;
+let touchMoved  = false;
+const fsViewer = document.getElementById('fullscreen-viewer');
+
+fsViewer.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].clientX;
+  touchStartY = e.changedTouches[0].clientY;
+  touchMoved  = false;
+}, { passive: true });
+
+fsViewer.addEventListener('touchmove', e => {
+  const dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+  const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+  if (dx > 10 || dy > 10) touchMoved = true;
+}, { passive: true });
+
+fsViewer.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+    navFullscreen(dx < 0 ? 1 : -1);
+  }
+}, { passive: true });
 
 // Keyboard navigation
 document.addEventListener('keydown', e => {
