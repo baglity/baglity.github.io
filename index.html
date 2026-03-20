@@ -265,6 +265,9 @@
     .pbox { width: 44vw; }
     .pimg { height: 44vw; }
     .tagline .ttext { font-size: 9px; letter-spacing: 2px; }
+    .popup-title { font-size: 11px; letter-spacing: 3px; white-space: nowrap; }
+    .popup-desc { font-size: 11px; }
+    .popup-box { padding: 28px 14px 20px; width: 95%; }
   }
 
   /* Review ticker carousel */
@@ -700,13 +703,14 @@ animate();
   .popup-box {
     background: #0F0D0A;
     border: 2.5px solid #C9A96E;
-    width: 90%;
+    width: 92%;
     max-width: 480px;
     position: relative;
-    padding: 32px 28px 28px;
+    padding: 32px 20px 24px;
     text-align: center;
     box-shadow: 0 8px 40px rgba(0,0,0,0.6);
     animation: popIn 0.35s ease;
+    box-sizing: border-box;
   }
   @keyframes popIn {
     from { opacity: 0; transform: scale(0.93); }
@@ -759,13 +763,14 @@ animate();
   /* Popup title */
   .popup-title {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 6px;
+    letter-spacing: 4px;
     color: #F5EDD8;
     text-transform: uppercase;
     margin-bottom: 14px;
     text-shadow: 0 0 20px #C9A96E44;
+    white-space: nowrap;
   }
   .popup-sub {
     font-family: 'Josefin Sans', sans-serif;
